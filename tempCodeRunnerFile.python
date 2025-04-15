@@ -1,0 +1,19 @@
+import random as rand
+
+
+#set up
+
+word_bank = ["alpha", "beta"]
+chosen_word = word_bank[rand.randint(0, len(word_bank) - 1)]
+
+def word_pick(): 
+    letters = list(chosen_word)
+    print(letters)
+
+def game():
+    letterinput = input("Next Letter?")
+    for corlet in range(len(chosen_word)):
+        print("hi")
+
+word_pick()
+game()
