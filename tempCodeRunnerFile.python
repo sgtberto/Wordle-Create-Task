@@ -1,19 +1,49 @@
 import random as rand
 
 
-#set up
+#set up variables
 
-word_bank = ["alpha", "beta"]
-chosen_word = word_bank[rand.randint(0, len(word_bank) - 1)]
+wordbank = ["alpha", "beta"]
+chosenword = wordbank[rand.randint(0, len(wordbank) - 1)]
+letters = []
+board = []
+wordinput = ""
+solved = 0
+trylimit = 5
+tries = 0
 
-def word_pick(): 
-    letters = list(chosen_word)
+#set up functions
+
+def setup(): 
+    letters = list(chosenword)
     print(letters)
+    for boardset in range(len(letters)):
+        board.append("_")
+
+def ui():
+    print(board)
+    board.clear()
+    wordinput = input("Guess? ")
+
+def computation():
+    if len(wordinput) == len(chosenword):
+        for let in range(len(chosenword)):
+            for corlet in range(len(wordinput)):
+                if chosenword[let] == wordinput[corlet]:
+                    board.append(u'\u2713')
+    else:
+        print("Wrong number of letters!")
 
 def game():
-    letterinput = input("Next Letter?")
-    for corlet in range(len(chosen_word)):
-        print("hi")
+    while (solved != 1 and tries == trylimit):
+        ui()
+        computation()
+        tries += 1
+        print("Last guess: ", wordinput)
+    print(board)
+    print("Congratulations you solved it!")
+    playagain = input("Play again? Y/N")
+    if playagain == "Y":
+        game()
 
-word_pick()
 game()
