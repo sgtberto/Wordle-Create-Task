@@ -9,8 +9,7 @@ letters = []
 board = []
 wordinput = ""
 solved = 0
-trylimit = 5
-tries = 0
+attemptlimit = 5
 
 #set up functions
 
@@ -35,11 +34,12 @@ def computation():
         print("Wrong number of letters!")
 
 def game():
-    while (solved != 1 and tries == trylimit):
-        ui()
-        computation()
-        tries += 1
-        print("Last guess: ", wordinput)
+    setup()
+    for attempt in range(attemptlimit):
+        if solved != 1:
+            ui()
+            computation()
+            print("Last guess: ", wordinput)
     print(board)
     print("Congratulations you solved it!")
     playagain = input("Play again? Y/N")
