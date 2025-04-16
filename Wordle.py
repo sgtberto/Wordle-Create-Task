@@ -15,6 +15,7 @@ attempt = 0
 #set up functions
 
 def setup(): 
+    global letters
     letters = list(chosenword)
     print(letters)
     for boardset in range(len(letters)):
@@ -22,26 +23,37 @@ def setup():
 
 def ui():
     global wordinput
+    global guess
+    global solved
+    solved = 0
     print(board)
     board.clear()
     wordinput = input("Guess? ")
+    guess = list(wordinput)
+    print(guess)
 
 def computation():
 
-    if len(wordinput) == len(chosenword):
-        for let in range(len(chosenword)):
-            for corlet in range(len(wordinput)):
-                if chosenword[let] == wordinput[corlet]:
-                    global solved
-                    board.append(u'\u2713')
-                    solved =+ 1
+    if len(letters) == len(guess):
+        for let in range(len(guess)):
+            if letters[let] == guess[let]:
+                global solved
+                board.append(u'\u2713')
+                solved =+ 1
+            else: 
+                for corlet in range(len(guess)):
+                    if letters[let] == guess[corlet] and yellow == false:
+                        board.append(u'\u25CB')
+                        
+                                
     else:
         print("Wrong number of letters!")
-    print(board)
+
 
 def game():
     setup()
     for attempt in range(attemptlimit):
+        global solved
         if solved != 1:
             ui()
             computation()
