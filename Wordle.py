@@ -6,6 +6,7 @@ import random as rand
 wordbank = ["alpha", "beta"]
 chosenword = wordbank[rand.randint(0, len(wordbank) - 1)]
 letters = []
+blank = []
 board = []
 wordinput = ""
 solved = len(chosenword)
@@ -19,15 +20,16 @@ def setup():
     letters = list(chosenword)
     print(letters)
     for boardset in range(len(letters)):
-        board.append("_")
+        blank.append("_")
 
 def ui():
     global wordinput
     global guess
     global solved
+    global board
     solved = 0
     print(board)
-    board.clear()
+    board = blank
     wordinput = input("Guess? ")
     guess = list(wordinput)
     print(guess)
@@ -35,28 +37,34 @@ def ui():
 def computation():
 
     if len(letters) == len(guess):
-        for let in range(len(letters)): 
-            if letters[let] == guess[0]:
+        for corlet in range(len(guess)): 
+            if guess[corlet] == letters[0]:
+                    print(letters)
                     global solved
-                    board.append(u'\u2713')
+                    board.insert(corlet, u'\u2713')
                     solved =+ 1
-                    guess.pop(0) 
+                    letters.pop(corlet)
+                    guess.pop(corlet) 
                     print("check") 
-            else:
-                for corlet in range(len(guess)):
-                    print("guesses")
-                    print(letters[let])
-                    print(guess)
-                    if letters[let] == guess[corlet]:
-                        board.append(u'\u25CB')
-                        guess.pop(let)
-                        print("circle")
-                        break
-                    else:
-                        if corlet == len(guess) - 1:
-                            board.append("X")
-                            guess.pop(0)
-            print("iteration")
+        for islet in range(len(board)):
+            print("guesses")
+            print(guess[islet])
+            print(letters)
+            if board[islet] != u'\u2713':
+                for glet in range(len(guess)):
+                    for let in range(len(letters)):
+                        if guess[glet] == letters[let]:
+                            board.insert(islet, u'\u25CB')
+                            letters.pop(corlet)
+                            popped = letters.pop(0)
+                            letters.append(popped)
+                            print("circle")
+                            break
+                        else:
+                            if corlet == len(letters) - 1:
+                                board.append("X")
+                                letters.pop(0)
+        print("iteration")
                                                             
     else:
         print("Wrong number of letters!")
