@@ -35,17 +35,29 @@ def ui():
 def computation():
 
     if len(letters) == len(guess):
-        for let in range(len(guess)):
-            if letters[let] == guess[let]:
-                global solved
-                board.append(u'\u2713')
-                solved =+ 1
-            else: 
+        for let in range(len(letters)): 
+            if letters[let] == guess[0]:
+                    global solved
+                    board.append(u'\u2713')
+                    solved =+ 1
+                    guess.pop(0) 
+                    print("check") 
+            else:
                 for corlet in range(len(guess)):
-                    if letters[let] == guess[corlet] and yellow == false:
+                    print("guesses")
+                    print(letters[let])
+                    print(guess)
+                    if letters[let] == guess[corlet]:
                         board.append(u'\u25CB')
-                        
-                                
+                        guess.pop(let)
+                        print("circle")
+                        break
+                    else:
+                        if corlet == len(guess) - 1:
+                            board.append("X")
+                            guess.pop(0)
+            print("iteration")
+                                                            
     else:
         print("Wrong number of letters!")
 
@@ -63,7 +75,7 @@ def game():
         print("Congratulations you solved it!")
     else: 
         print("You lost :( Nice try!")
-    playagain = input("Play again? Y/N")
+    playagain = input("Play again? Y/N ")
     if playagain == "Y":
         board.clear()
         solved = 0
