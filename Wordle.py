@@ -4,20 +4,24 @@ import random as rand
 #set up variables
 
 wordbank = ["alpha", "beta"]
-chosenword = wordbank[rand.randint(0, len(wordbank) - 1)]
+chosenword = []
 letters = []
+solved = 0
 blank = []
 board = []
 wordinput = ""
-solved = len(chosenword)
 attemptlimit = 5
 attempt = 0
 d = 0
 
 #set up functions
 
-def setup(): 
+def setup():
+    global chosenword
     global letters
+    global solved
+    chosenword = wordbank[rand.randint(0, len(wordbank) - 1)]
+    solved = len(chosenword)
     letters = list(chosenword)
     print(letters)
     for boardset in range(len(letters)):
@@ -39,41 +43,55 @@ def computation():
 
     if len(letters) == len(guess):
         for corlet in range(len(board)): 
-            if guess[0] == letters[0]:
+            if guess[corlet] == letters[corlet]:
                     print (guess)
                     print(letters)
                     global solved
                     board.insert(corlet, u'\u2713')
                     board.pop(corlet + 1)
                     solved =+ 1
-                    letters.pop(0)
-                    guess.pop(0) 
+                    letters.insert(corlet, "_")
+                    letters.pop(corlet + 1)
+                    guess.insert(corlet, "_")
+                    guess.pop(corlet + 1) 
                     print("check") 
         for islet in range(len(board)):
+            global d
             print("guesses")
-            print(board[islet])
+            print(board)
             print(letters)
             print(guess)
             if board[islet] != u'\u2713':
                 for glet in range(len(guess)):
                     for let in range(len(letters)):
-                        if guess[glet] == letters[let]:
-                            global d
+                        if guess[glet] == letters[let] and guess[glet] != "_":
                             board.insert(islet, u'\u25CB')
                             board.pop(islet + 1)
-                            letters.pop(let)
-                            guess.pop(glet)
+                            letters.insert(let, "_")
+                            letters.pop(let + 1)
+                            guess.insert(glet, "_")
+                            guess.pop(glet + 1)
                             print("circle")
+                            print(letters)
+                            print(guess)
                             d = 1
-                            break
-                        else:
-                            if let == len(letters) - 1:
-                                board.insert(islet, "x")
-                                board.pop(islet + 1)
-                                guess.pop(glet)
+                            print(d)
+                            break                
                     if d == 1:
-                        d = 0
+                        print("break")
                         break
+                if d == 1:
+                    print("break 2")
+                    d = 0
+                    break
+
+                board.insert(islet, "x")
+                board.pop(islet + 1)
+                letters.insert(let, "_")
+                letters.pop(let + 1)
+                guess.insert(glet, "_")
+                guess.pop(glet + 1)  
+                print("haha") 
         print("iteration")
                                                             
     else:
