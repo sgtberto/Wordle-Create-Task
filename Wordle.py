@@ -12,6 +12,7 @@ wordinput = ""
 solved = len(chosenword)
 attemptlimit = 5
 attempt = 0
+d = 0
 
 #set up functions
 
@@ -37,33 +38,42 @@ def ui():
 def computation():
 
     if len(letters) == len(guess):
-        for corlet in range(len(guess)): 
-            if guess[corlet] == letters[0]:
+        for corlet in range(len(board)): 
+            if guess[0] == letters[0]:
+                    print (guess)
                     print(letters)
                     global solved
                     board.insert(corlet, u'\u2713')
+                    board.pop(corlet + 1)
                     solved =+ 1
-                    letters.pop(corlet)
-                    guess.pop(corlet) 
+                    letters.pop(0)
+                    guess.pop(0) 
                     print("check") 
         for islet in range(len(board)):
             print("guesses")
-            print(guess[islet])
+            print(board[islet])
             print(letters)
+            print(guess)
             if board[islet] != u'\u2713':
                 for glet in range(len(guess)):
                     for let in range(len(letters)):
                         if guess[glet] == letters[let]:
+                            global d
                             board.insert(islet, u'\u25CB')
-                            letters.pop(corlet)
-                            popped = letters.pop(0)
-                            letters.append(popped)
+                            board.pop(islet + 1)
+                            letters.pop(let)
+                            guess.pop(glet)
                             print("circle")
+                            d = 1
                             break
                         else:
-                            if corlet == len(letters) - 1:
-                                board.append("X")
-                                letters.pop(0)
+                            if let == len(letters) - 1:
+                                board.insert(islet, "x")
+                                board.pop(islet + 1)
+                                guess.pop(glet)
+                    if d == 1:
+                        d = 0
+                        break
         print("iteration")
                                                             
     else:
