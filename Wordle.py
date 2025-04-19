@@ -56,52 +56,32 @@ def computation():
                     guess.pop(corlet + 1) 
                     print("check") 
         for islet in range(len(board)):
-            global d
             print("guesses")
-
+            print(board)
+            print(letters)
+            print(guess)
             if board[islet] != u'\u2713':
                 print("underscore no")
-                for glet in range(len(guess)):
-                    if guess[glet] == letters[islet] and guess[glet] != "_":
-                        print(islet)
-                        board.insert(islet, u'\u25CB')
-                        board.pop(islet + 1)
-                        letters.insert(islet, "_")
-                        letters.pop(islet+ 1)
-                        guess.insert(glet, "_")
-                        guess.pop(glet+ 1)
-                        print("circle")
-                        print(board)
-                        print(letters)
-                        print(guess)
-                        d = 1
-                        print(d)
-                        break   
-                for let in range(len(letters)):
-                    if guess[islet] == letters[let] and letters[let] != "_":
+                for let in range(len(guess)):
+                    if letters[let] == guess[islet] and letters[let] != "_":
                         print(islet)
                         board.insert(islet, u'\u25CB')
                         board.pop(islet + 1)
                         letters.insert(let, "_")
-                        letters.pop(let + 1)
+                        letters.pop(let+ 1)
                         guess.insert(islet, "_")
                         guess.pop(islet+ 1)
                         print("circle")
                         print(board)
                         print(letters)
                         print(guess)
-                        d = 1
-                        print(d)
                         break   
-                for glet in range(len(guess)):
-                    if guess[glet] != "_" and guess[glet] != u'\u25CB':
-                        board.insert(islet, "x")
-                        board.pop(islet + 1)
-                        letters.insert(islet, "_")
-                        letters.pop(islet + 1)
-                        guess.insert(glet, "_")
-                        guess.pop(glet + 1)  
-                        print("haha") 
+
+        for islet in range(len(board)):
+            if board[islet] == "_":
+                board.insert(islet, "x")
+                board.pop(islet + 1)
+
         print("iteration")
                                                             
     else:
